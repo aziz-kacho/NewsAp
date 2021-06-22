@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
@@ -16,7 +16,7 @@ import com.example.newsapp.data.Models.HistoryNewsEntity.NewsResponseHistory
 import com.example.newsapp.utils.OnClickHistory
 import tj.livo.newsapp.models.NewsResponseSave
 
-class HistoryFragment : Fragment(), OnClickHistory, FragmentManager.OnBackStackChangedListener {
+class HistoryFragment : Fragment(), OnClickHistory {
 
     private lateinit var viewModel: HistoryViewModel
     private var getNewsResponse = MutableLiveData<NewsResponseHistory>()
@@ -51,15 +51,9 @@ class HistoryFragment : Fragment(), OnClickHistory, FragmentManager.OnBackStackC
 
     override fun onclickListener(articlesHistoryNews: ArticlesHistoryNews) {
 
-
+        val bundle: Bundle = Bundle()
+        bundle.putParcelable("article", articlesHistoryNews)
+        findNavController().navigate(R.id.recentHistoryFragment, bundle)
 
     }
-
-
-    /// Кнопка назад ///
-    override fun onBackStackChanged() {
-        
-    }
-
-
 }

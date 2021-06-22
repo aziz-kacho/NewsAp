@@ -31,15 +31,10 @@
             android:id="@+id/action_allNewsFragment_to_first_Fragmets2"
             app:destination="@id/first_Fragmets" />
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.newsapp.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/first_Fragmets"
         android:name="com.example.newsapp.ui.First_Fragmets"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
         <action
             android:id="@+id/action_first_Fragmets_to_allNewsFragment"
             app:destination="@id/allNewsFragment" />
@@ -52,6 +47,9 @@
         <action
             android:id="@+id/action_saveNewsFragment_to_first_Fragmets"
             app:destination="@id/first_Fragmets" />
+        <action
+            android:id="@+id/action_saveNewsFragment_to_chosenNewsFragment"
+            app:destination="@id/chosenNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -61,5 +59,16 @@
         <action
             android:id="@+id/action_historyFragment_to_first_Fragmets"
             app:destination="@id/first_Fragmets" />
+        <action
+            android:id="@+id/action_historyFragment_to_recentHistoryFragment"
+            app:destination="@id/recentHistoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recentHistoryFragment"
+        android:name="com.example.newsapp.data.Models.FragmentAllNews.RecentHistoryFragment"
+        android:label="@string/app_name" />
+    <fragment
+        android:id="@+id/chosenNewsFragment"
+        android:name="com.example.newsapp.data.Models.FragmentAllNews.ChosenNewsFragment"
+        android:label="@string/app_name" />
 </navigation>

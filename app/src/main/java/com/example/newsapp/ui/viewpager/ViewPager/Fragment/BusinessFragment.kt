@@ -3,7 +3,6 @@ package com.example.newsapp.ui.viewpager.ViewPager.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapp.utils.OnClick
 import com.example.newsapp.network.api.RetrofitInstance
 import com.example.newsapp.ui.logout.AllViewModel
-import kotlinx.android.synthetic.main.fragment_all.*
+import kotlinx.android.synthetic.main.fragment_business.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,8 +26,6 @@ class BusinessFragment : Fragment(), OnClick {
     private var getNewsResponse = MutableLiveData<NewsResponseSave>()
     private lateinit var recyclerViewBusinessNews: RecyclerView
     private lateinit var adapterBusinessNews: AdapterAllCategoryNews
-    private lateinit var progressBar: ProgressBar
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +36,6 @@ class BusinessFragment : Fragment(), OnClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        progressBar = view.findViewById(R.id.progress_circular)
         viewModel = ViewModelProvider(this).get(AllViewModel::class.java)
         recyclerViewBusinessNews = view.findViewById(R.id.saveRecyclerView)
         val layoutManager = LinearLayoutManager(requireContext())
@@ -49,12 +44,17 @@ class BusinessFragment : Fragment(), OnClick {
         adapterBusinessNews = AdapterAllCategoryNews(this, this)
         recyclerViewBusinessNews.adapter = adapterBusinessNews
 
+
+
+
+
         businessNews()
         viewModel.getNewsByCategory("business").observe(viewLifecycleOwner) {
-
-            progressBar.visibility = View.GONE
+            progress_circular.visibility = View.GONE
             adapterBusinessNews.setData(it)
         }
+
+
 
     }
 
@@ -68,7 +68,10 @@ class BusinessFragment : Fragment(), OnClick {
             ) {
                 Log.e("Status", response.code().toString())
                 if (response.isSuccessful) {
-                    viewModel.deleteAllNews()
+                    /*
+                    Здесь будет удаление из базы данных
+                     */viewModel.deleteByCategory("business")
+
                     response.body()?.articles?.forEach {
                         val articles = it
 
@@ -80,6 +83,7 @@ class BusinessFragment : Fragment(), OnClick {
 
             override fun onFailure(call: Call<NewsResponseSave>, t: Throwable) {
                 Log.e("ERROR", t.message.toString())
+
             }
         })
         getNewsResponse?.observe(viewLifecycleOwner, { data ->

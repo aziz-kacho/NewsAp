@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
@@ -45,7 +46,9 @@ class SaveNewsFragment : Fragment(), OnClickFavorites {
     }
 
     override fun onclickListener(articlesSaveNews: ArticlesSaveNews) {
-
+        val bundle: Bundle = Bundle()
+        bundle.putParcelable("article", articlesSaveNews)
+        findNavController().navigate(R.id.chosenNewsFragment, bundle)
     }
 
 

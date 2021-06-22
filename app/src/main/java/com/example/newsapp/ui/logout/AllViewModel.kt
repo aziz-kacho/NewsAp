@@ -3,6 +3,7 @@ package com.example.newsapp.ui.logout
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.example.newsapp.data.RoomDB.DataBase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ class AllViewModel(application: Application) : AndroidViewModel(application) {
     val daoNewsApp = DataBase.getInstance(application).daoNewsApp()
     val readAllData: LiveData<List<tj.livo.newsapp.models.Articles>> =
         daoNewsApp.getAllArticlesNews()
+
 
 
     fun addArticles(articles: tj.livo.newsapp.models.Articles) = GlobalScope.launch {
@@ -34,5 +36,9 @@ class AllViewModel(application: Application) : AndroidViewModel(application) {
 
     fun searchDataBase(searchQuery: String): LiveData<List<Articles>> {
         return daoNewsApp.searchDataBase(searchQuery)
+    }
+
+    fun deleteByCategory(type: String) = GlobalScope.launch{
+        daoNewsApp.orderByCategory(type)
     }
 }

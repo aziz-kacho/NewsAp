@@ -1,43 +1,35 @@
 package com.example.newsapp.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.SearchView
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
-import com.example.newsapp.data.Models.HistoryNewsEntity.ArticlesHistoryNews
-import com.example.newsapp.data.Models.HistoryNewsEntity.NewsResponseHistory
-import com.example.newsapp.network.api.Api
-import com.example.newsapp.network.api.RetrofitInstance
-import com.example.newsapp.ui.logout.AdapterAllCategoryNews
 import com.example.newsapp.ui.logout.AllViewModel
 import com.example.newsapp.utils.OnClick
 import kotlinx.android.synthetic.main.fragment_recent.*
 import tj.livo.newsapp.models.Articles
 
 class SearchFragment : Fragment(), OnClick {
-    private var getNewsResponse = MutableLiveData<NewsResponseHistory>()
     private lateinit var recyclerViewSearchNews: RecyclerView
 
-    private lateinit var adapterAllCategoryNews: AdapterAllCategoryNews
-    private lateinit var articlesHistoryNews: ArticlesHistoryNews
     private lateinit var viewModel: AllViewModel
     private lateinit var articles: Articles
     private var articlesList: List<Articles> = emptyList()
     private lateinit var progressBar: ProgressBar
-
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var adapterSearch: SearchPagedAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +38,7 @@ class SearchFragment : Fragment(), OnClick {
         return inflater.inflate(R.layout.fragment_recent, container, false)
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,19 +46,24 @@ class SearchFragment : Fragment(), OnClick {
         progressBar = view.findViewById(R.id.progress_circular)
 
 
+
+        val searchViewModel: SearchViewModel by viewModels()
+
         recyclerViewSearchNews = view.findViewById(R.id.searchRecyclerView)
+
         val layoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerViewSearchNews.layoutManager = layoutManager
-        adapterAllCategoryNews = AdapterAllCategoryNews(this, this)
-        recyclerViewSearchNews.adapter = adapterAllCategoryNews
-        viewModel.readAllData.observe(viewLifecycleOwner) {
-            
 
-            adapterAllCategoryNews.setData(it)
-            progressBar.visibility = View.GONE
-            Log.e("TAG", "onQueryTextSubmit: $it")
-        }
+        recyclerViewSearchNews.layoutManager = layoutManager
+        adapterSearch = SearchPagedAdapter(this, this, requireActivity())
+        recyclerViewSearchNews.adapter = adapterSearch
+
+
+        searchViewModel.getNewsSearchList.observe(this, PagedList(adapterSearch::submitList,5))
+
+
+
+
 
 
 
@@ -104,9 +102,9 @@ class SearchFragment : Fragment(), OnClick {
         }
 
         viewModel.searchDataBase(filter).observe(viewLifecycleOwner) {
-            adapterAllCategoryNews.setData(it)
+            adapterSearch.setData(it)
             progressBar.visibility = View.GONE
-            Log.e("TAG", "onQueryTextSubmit: $it")
+//            Log.e("TAG", "onQueryTextSubmit: $it")
         }
 
     }

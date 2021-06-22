@@ -4,7 +4,6 @@ package com.example.newsapp.ui.viewpager.ViewPager.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +15,9 @@ import com.example.newsapp.ui.logout.AdapterAllCategoryNews
 import com.example.newsapp.utils.OnClick
 import com.example.newsapp.network.api.RetrofitInstance
 import com.example.newsapp.ui.logout.AllViewModel
+import kotlinx.android.synthetic.main.fragment_business.*
+import kotlinx.android.synthetic.main.fragment_business.progress_circular
+import kotlinx.android.synthetic.main.fragment_science.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +29,6 @@ class ScienceFragment : Fragment(), OnClick {
     private var getNewsResponse = MutableLiveData<NewsResponseSave>()
     private lateinit var recyclerViewBusinessNews: RecyclerView
     private lateinit var adapterBusinessNews: AdapterAllCategoryNews
-    private lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(
@@ -41,7 +42,6 @@ class ScienceFragment : Fragment(), OnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressBar = view.findViewById(R.id.progress_circular)
 
         viewModel = ViewModelProvider(this).get(AllViewModel::class.java)
         recyclerViewBusinessNews = view.findViewById(R.id.scienceRecyclerView)
@@ -53,7 +53,7 @@ class ScienceFragment : Fragment(), OnClick {
 
         businessNews()
         viewModel.getNewsByCategory("science").observe(viewLifecycleOwner) {
-            progressBar.visibility = View.GONE
+            progress_circular.visibility = View.GONE
             adapterBusinessNews.setData(it)
         }
 
@@ -69,7 +69,11 @@ class ScienceFragment : Fragment(), OnClick {
             ) {
                 Log.e("Status", response.code().toString())
                 if (response.isSuccessful) {
-                    viewModel.deleteAllNews()
+                    /*
+                    Здесь будет удаление из базы данных
+                     */
+                    viewModel.deleteByCategory("science")
+
                     response.body()?.articles?.forEach {
                         val articles = it
 
@@ -83,7 +87,7 @@ class ScienceFragment : Fragment(), OnClick {
                 Log.e("ERROR", t.message.toString())
             }
         })
-        getNewsResponse.observe(viewLifecycleOwner, { data ->
+        getNewsResponse?.observe(viewLifecycleOwner, { data ->
             Log.e("debug", "get Politics News: ${data.articles}")
         })
     }

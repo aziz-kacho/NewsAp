@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +17,9 @@ import com.example.newsapp.ui.logout.AdapterAllCategoryNews
 import com.example.newsapp.utils.OnClick
 import com.example.newsapp.network.api.RetrofitInstance
 import com.example.newsapp.ui.logout.AllViewModel
+import kotlinx.android.synthetic.main.fragment_business.*
+import kotlinx.android.synthetic.main.fragment_business.progress_circular
+import kotlinx.android.synthetic.main.fragment_politics.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +34,7 @@ class PoliticsFragment : Fragment(), OnClick {
     private var getNewsResponse = MutableLiveData<NewsResponseSave>()
     private lateinit var recyclerViewBusinessNews: RecyclerView
     private lateinit var adapterBusinessNews: AdapterAllCategoryNews
-    private lateinit var progressBar: ProgressBar
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +46,7 @@ class PoliticsFragment : Fragment(), OnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressBar = view.findViewById(R.id.progress_circular)
+
         viewModel = ViewModelProvider(this).get(AllViewModel::class.java)
         recyclerViewBusinessNews = view.findViewById(R.id.politicsRecyclerView)
         val layoutManager = LinearLayoutManager(requireContext())
@@ -55,7 +57,7 @@ class PoliticsFragment : Fragment(), OnClick {
 
         businessNews()
         viewModel.getNewsByCategory("politics").observe(viewLifecycleOwner) {
-            progressBar.visibility = View.GONE
+            progress_circular.visibility = View.GONE
             adapterBusinessNews.setData(it)
         }
 
@@ -71,7 +73,10 @@ class PoliticsFragment : Fragment(), OnClick {
             ) {
                 Log.e("Status", response.code().toString())
                 if (response.isSuccessful) {
-                    viewModel.deleteAllNews()
+                    viewModel.deleteByCategory("politics")
+                    /*
+                    Здесь будет удаление из базы данных
+                     */
                     response.body()?.articles?.forEach {
                         val articles = it
 

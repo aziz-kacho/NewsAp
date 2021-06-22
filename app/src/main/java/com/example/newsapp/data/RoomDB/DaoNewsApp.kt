@@ -1,6 +1,7 @@
 package com.example.newsapp.data.RoomDB
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -22,6 +23,11 @@ interface DaoNewsApp{
     @Query("select * from news order by id desc")
     fun getAllArticlesNews(): LiveData<List<Articles>>
 
+
+    @Query("select * from news order by id desc")
+    fun getNewsForSearch() : DataSource.Factory<Int, Articles>
+
+
   @Query("select * from news where type = :category")
    fun getNewsByCategory(category : String) : LiveData<List<tj.livo.newsapp.models.Articles>>
 
@@ -33,4 +39,11 @@ interface DaoNewsApp{
 
     @Query("select * from news where title like '%' || :searchQuery || '%'")
     fun searchDataBase(searchQuery: String) : LiveData<List<Articles>>
+
+    @Query("delete from news where type = :category")
+    fun orderByCategory(category : String)
+
+
+//    @Query("select 10 ")
+//    fun getPagedList() : LiveData<List<Articles>>
 }

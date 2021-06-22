@@ -1,7 +1,7 @@
 package com.example.newsapp
 
-import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -19,6 +19,9 @@ class ProfileUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_profile)
 
+
+
+
         nav_host = findNavController(R.id.fragmentContainerView)
 
         bottonNav = findViewById(R.id.navigation_view)
@@ -31,14 +34,15 @@ class ProfileUser : AppCompatActivity() {
             )
         )
 
-        setupActionBarWithNavController(nav_host, appBarConfiguration)
+//        setupActionBarWithNavController(nav_host, appBarConfiguration)
+//        setupActionBarWithNavController(nav_host, appBarConfiguration)
         bottonNav.setupWithNavController(nav_host)
         bottonNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_homeLink -> {
                     nav_host.navigate(R.id.first_Fragmets)
                 }
-                R.id.action_archiveLink -> {
+                R.id.action_search -> {
                     nav_host.navigate(R.id.recentFragment)
                 }
                 R.id.action_userLink -> {
@@ -49,6 +53,17 @@ class ProfileUser : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.actionbar, menu)
+
+        return true
     }
 
 

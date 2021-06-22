@@ -17,13 +17,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.NewsApp"
             tools:ignore="LockedOrientationActivity"
-            android:parentActivityName=".ProfileUser"/>
+            />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.NewsAppNoActiionBar"
             tools:ignore="LockedOrientationActivity"
-            android:parentActivityName=".MainActivity">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
