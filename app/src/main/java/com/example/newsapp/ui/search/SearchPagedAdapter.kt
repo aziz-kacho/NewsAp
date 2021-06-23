@@ -19,25 +19,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
+import com.example.newsapp.data.Models.RapidApiNews.Value
 import com.example.newsapp.utils.OnClick
+import com.example.newsapp.utils.OnClickRapidApi
 import tj.livo.newsapp.models.Articles
 import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchPagedAdapter(
     private val contextAllRecommended: Fragment,
-    private val onclick: OnClick
+    private val onclick: OnClickRapidApi
 ) :
     PagedListAdapter<Articles, SearchPagedAdapter.SearchViewHolder>(DIFF_CALLBACK) {
 
 
-    var articles: List<Articles> = emptyList()
+    var value: List<Value> = emptyList()
 
 
-    fun setData(list: List<Articles>) {
-        articles = list
+    fun setData(list: List<Value>) {
+        value = list
         notifyDataSetChanged()
-        Log.e("TAG", "setData: $articles")
+        Log.e("TAG", "setData: $value")
     }
 
 
@@ -58,19 +60,19 @@ class SearchPagedAdapter(
         holder: SearchViewHolder,
         position: Int,
     ) {
-        val currentItem = articles[position]
+        val currentItem = value[position]
         holder.titleTextAllRecommended.text = currentItem.title
         holder.descriptionTextAllRecommended.text = currentItem.description
-        Glide.with(contextAllRecommended).load(currentItem.urlToImage).into(holder.titleImage)
+        Glide.with(contextAllRecommended).load(currentItem.url).into(holder.titleImage)
         holder.dateAllRecommended.text = getDate(currentItem).toString()
         holder.itemView.setOnClickListener {
-            onclick.onclickListener(currentItem)
+            onclick.onClickListener(currentItem)
         }
     }
 
 
     override fun getItemCount(): Int {
-        return articles.size
+        return value.size
     }
 
 
@@ -97,7 +99,7 @@ class SearchPagedAdapter(
 
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getDate(articles: Articles): String? {
+    fun getDate(value: Value): String? {
         val date: Date = Date()
         val format = "dd.MM.yyyy HH:mm"
         val simpleDateFormat = SimpleDateFormat(format)

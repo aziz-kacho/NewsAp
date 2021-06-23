@@ -86,7 +86,7 @@ class BusinessFragment : Fragment(), OnClick {
 
             }
         })
-        getNewsResponse?.observe(viewLifecycleOwner, { data ->
+        getNewsResponse.observe(viewLifecycleOwner, { data ->
             Log.e("debug", "get Politics News: ${data.articles}")
         })
     }

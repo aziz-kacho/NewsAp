@@ -5,14 +5,11 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitInstance {
+class RetrofitInstanceRapidApi {
     private val client = OkHttpClient.Builder()
         .addInterceptor{ chain ->
             val original = chain.request()
             val requestBuilderForToken = original.newBuilder()
-                .addHeader("x-rapidapi-key","4f9fec66aemsh2c7d98e8d3b70a1p1a61bdjsn0df841835fda")
-                .addHeader("x-rapidapi-host","contextualwebsearch-websearch-v1.p.rapidapi.com")
-                .addHeader("useQueryString","true")
                 .method(original.method(),original.body())
             val requestToken = requestBuilderForToken.build()
             chain.proceed(requestToken)

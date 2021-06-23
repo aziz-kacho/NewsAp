@@ -12,9 +12,12 @@ import tj.livo.newsapp.models.Articles
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val daoNewsApp = DataBase.getInstance(application).daoNewsApp()
-    private val getNewsForSearch: DataSource.Factory<Int, Articles> = daoNewsApp.getNewsForSearch()
-    val getNewsSearchList: LiveData<PagedList<Articles>> = getNewsForSearch.toLiveData(50, 5)
+//    private val daoNewsApp = DataBase.getInstance(application).daoNewsApp()
+//    private val getNewsForSearch: DataSource.Factory<Int, Articles> = daoNewsApp.getNewsForSearch()
+//    val getNewsSearchList: LiveData<PagedList<Articles>> = getNewsForSearch.toLiveData(50, 5)
+
+
+
 
 }
 
