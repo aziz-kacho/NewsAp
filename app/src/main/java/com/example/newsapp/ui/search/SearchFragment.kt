@@ -31,6 +31,8 @@ class SearchFragment : Fragment(), OnClick {
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var adapterSearch: SearchPagedAdapter
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -46,7 +48,6 @@ class SearchFragment : Fragment(), OnClick {
         progressBar = view.findViewById(R.id.progress_circular)
 
 
-
         val searchViewModel: SearchViewModel by viewModels()
 
         recyclerViewSearchNews = view.findViewById(R.id.searchRecyclerView)
@@ -55,11 +56,17 @@ class SearchFragment : Fragment(), OnClick {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
         recyclerViewSearchNews.layoutManager = layoutManager
-        adapterSearch = SearchPagedAdapter(this, this, requireActivity())
+        adapterSearch = SearchPagedAdapter(this, this)
         recyclerViewSearchNews.adapter = adapterSearch
 
 
-        searchViewModel.getNewsSearchList.observe(this, PagedList(adapterSearch::submitList,5))
+
+
+
+        searchViewModel.getNewsSearchList.observe(viewLifecycleOwner) {
+            adapterSearch.setData(it)
+            progressBar.visibility = View.GONE
+        }
 
 
 

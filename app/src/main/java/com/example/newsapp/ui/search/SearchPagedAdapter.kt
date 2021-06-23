@@ -69,9 +69,9 @@ class SearchPagedAdapter(
     }
 
 
-//    override fun getItemCount(): Int {
-//        return articles.size
-//    }
+    override fun getItemCount(): Int {
+        return articles.size
+    }
 
 
     companion object {
