@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.*
 import com.example.newsapp.R
 import com.example.newsapp.api.RetrofitInstanceRapidApi
 import com.example.newsapp.data.Models.RapidApiNews.GetNews
@@ -45,8 +46,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
     private val listOfNews = MutableLiveData<List<Value>>()
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -72,13 +71,40 @@ class SearchFragment : Fragment(), OnClickRapidApi {
         recyclerViewSearchNews.layoutManager = layoutManager
         adapterSearch = SearchPagedAdapter(this, this)
         recyclerViewSearchNews.adapter = adapterSearch
-        rapidApiNews()
+
+
+
+        var index: Int = 1
+        rapidApiNews(index)
 
         listOfNews.observe(viewLifecycleOwner, {
             adapterSearch.setData(it)
             progressBar.visibility = View.GONE
             Log.d("TAG", "get RapidApiNews: $it")
         })
+
+
+
+            recyclerViewSearchNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val totalItemCount : Int  = layoutManager.itemCount
+                    val lastVisible : Int = layoutManager.findLastVisibleItemPosition()
+
+                    val endHasBeenReached : Boolean = lastVisible + 5 >= totalItemCount
+
+                    if (totalItemCount > 0  && endHasBeenReached){
+                        index++
+                        rapidApiNews(index)
+                        Log.e("TAG", "onScrolled: error", )
+                    }
+                }
+            })
+
+
+
+
 
 
 
@@ -124,12 +150,19 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 ////            Log.e("TAG", "onQueryTextSubmit: $it")
 //        }
 
+        listOfNews.observe(viewLifecycleOwner, {
+
+            adapterSearch.setData(it)
+            progressBar.visibility = View.GONE
+            Log.d("TAG", "get RapidApiNews: $it")
+        })
+
     }
 
 
-    private fun rapidApiNews() {
+    private fun rapidApiNews(index : Int) {
         RetrofitInstanceRapidApi().api().getListOfNews(
-            1
+            index
         ).enqueue(object : Callback<GetNews> {
             override fun onResponse(
                 call: Call<GetNews>,
@@ -159,8 +192,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 
         })
     }
-
-
 
 
 //    override fun onclickListener(articles: Articles) {
