@@ -134,7 +134,7 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             }
 
             override fun onTextChanged(filter: CharSequence?, start: Int, before: Int, count: Int) {
-//                filterList(filter.toString())
+                filterList(filter.toString())
             }
 
             override fun afterTextChanged(filter: Editable?) {
@@ -156,6 +156,8 @@ class SearchFragment : Fragment(), OnClickRapidApi {
                 tempList.add(d)
             }
         }
+
+
 
 
 
