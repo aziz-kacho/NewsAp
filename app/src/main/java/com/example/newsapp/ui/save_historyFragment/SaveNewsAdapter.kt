@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.utils.OnClickFavorites
-import tj.livo.newsapp.models.Articles
 import tj.livo.newsapp.models.ArticlesSaveNews
 import java.util.*
 

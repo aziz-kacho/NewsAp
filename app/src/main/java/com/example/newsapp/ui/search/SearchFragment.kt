@@ -43,7 +43,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
     private val listOfNews = ArrayList<Value>()
 
 
-
     private var REQUEST_SENDED = false
     private var q: String? = null
 
@@ -111,14 +110,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             }
         })
 
-
-
-
-
-
-
-
-
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 filter: CharSequence?,
@@ -132,8 +123,11 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             override fun onTextChanged(filter: CharSequence?, start: Int, before: Int, count: Int) {
 //                filterList(filter.toString())
 
-                searchRapidApi(filter.toString())
-                Log.e("TAG", "onTextChanged: OK", )
+
+                listOfNews.clear()
+                searchRapidApi(filter.toString(), index)
+                Log.e("TAG", "onTextChanged: OK")
+                adapterSearch.setData(listOfNews)
 
             }
 
@@ -156,23 +150,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
                 tempList.add(d)
             }
         }
-
-
-
-
-//        viewModel.searchDataBase(filter).observe(viewLifecycleOwner) {
-//            adapterSearch.setData(it)
-//            progressBar.visibility = View.GONE
-////            Log.e("TAG", "onQueryTextSubmit: $it")
-//        }
-
-
-//        listOfNews.observe(viewLifecycleOwner, {
-//
-//            adapterSearch.setData(it)
-//            progressBar.visibility = View.GONE
-//            Log.d("TAG", "get RapidApiNews: $it")
-//        })
 
 
     }
@@ -202,6 +179,7 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             }
 
             override fun onFailure(call: Call<GetNews>, t: Throwable) {
+                progressBar.visibility = View.GONE
                 Log.e("ERROR", t.message.toString())
             }
 
@@ -210,15 +188,15 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 
         getNewsResponse.observe(viewLifecycleOwner, {
             Log.e("TAG", "get RapidApiNews: ${it.value}")
-
+            progressBar.visibility = View.GONE
         })
     }
 
 
-    private fun searchRapidApi(q: String) {
+    private fun searchRapidApi(q: String, index: Int) {
         RetrofitInstanceSearchRapidApi().api().getListOfNews(
             q,
-            1
+            index
         ).enqueue(object : Callback<GetNews> {
             override fun onResponse(call: Call<GetNews>, response: Response<GetNews>) {
                 if (!response.isSuccessful) return
@@ -234,6 +212,7 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 
             override fun onFailure(call: Call<GetNews>, t: Throwable) {
                 Log.e("ERROR", t.message.toString())
+                progressBar.visibility = View.GONE
             }
 
         })

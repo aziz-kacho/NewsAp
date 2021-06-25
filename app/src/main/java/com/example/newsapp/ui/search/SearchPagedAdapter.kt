@@ -11,24 +11,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.data.Models.RapidApiNews.Value
-import com.example.newsapp.utils.OnClick
 import com.example.newsapp.utils.OnClickRapidApi
 import tj.livo.newsapp.models.Articles
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SearchPagedAdapter(
     private val contextAllRecommended: Fragment,
-    private val onclick: OnClickRapidApi
+    private val onclick: OnClickRapidApi,
 ) :
     PagedListAdapter<Articles, SearchPagedAdapter.SearchViewHolder>(DIFF_CALLBACK) {
 
@@ -61,9 +56,11 @@ class SearchPagedAdapter(
         position: Int,
     ) {
         val currentItem = value[position]
+
+
         holder.titleTextAllRecommended.text = currentItem.title
         holder.descriptionTextAllRecommended.text = currentItem.description
-        Glide.with(contextAllRecommended).load(currentItem.url).into(holder.titleImage)
+        Glide.with(contextAllRecommended).load(currentItem.image!!.url).into(holder.titleImage)
         holder.dateAllRecommended.text = getDate(currentItem).toString()
         holder.itemView.setOnClickListener {
             onclick.onClickListener(currentItem)
@@ -86,14 +83,12 @@ class SearchPagedAdapter(
                 newConcert: Articles,
             ) = oldConcert.id == newConcert.id
 
-//
-
 
             override fun areContentsTheSame(
                 oldConcert: Articles,
                 newConcert: Articles,
             ) = oldConcert == newConcert
-//
+
         }
     }
 

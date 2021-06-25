@@ -1,16 +1,15 @@
 package com.example.newsapp.api
 
-import com.google.android.gms.common.api.Api
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstanceRapidApi {
     private val client = OkHttpClient.Builder()
-        .addInterceptor{ chain ->
+        .addInterceptor { chain ->
             val original = chain.request()
             val requestBuilderForToken = original.newBuilder()
-                .method(original.method(),original.body())
+                .method(original.method(), original.body())
             val requestToken = requestBuilderForToken.build()
             chain.proceed(requestToken)
         }.build()
@@ -22,7 +21,8 @@ class RetrofitInstanceRapidApi {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    fun api() : NewsApi {
+
+    fun api(): NewsApi {
         return retrofitInstance().create(NewsApi::class.java)
     }
 }

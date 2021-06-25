@@ -1,10 +1,10 @@
 package com.example.newsapp.ui.save_historyFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,7 +14,6 @@ import com.example.newsapp.R
 import com.example.newsapp.data.Models.HistoryNewsEntity.ArticlesHistoryNews
 import com.example.newsapp.data.Models.HistoryNewsEntity.NewsResponseHistory
 import com.example.newsapp.utils.OnClickHistory
-import tj.livo.newsapp.models.NewsResponseSave
 
 class HistoryFragment : Fragment(), OnClickHistory {
 

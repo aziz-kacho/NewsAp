@@ -3,7 +3,6 @@ package com.example.newsapp.ui.logout
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
 import com.example.newsapp.data.RoomDB.DataBase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
