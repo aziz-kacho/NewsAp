@@ -11,28 +11,24 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
 import com.example.newsapp.R
 import com.example.newsapp.api.RetrofitInstanceRapidApi
 import com.example.newsapp.data.Models.RapidApiNews.GetNews
 import com.example.newsapp.data.Models.RapidApiNews.Value
-import com.example.newsapp.network.api.RetrofitInstance
 import com.example.newsapp.network.searchRapidApi.RetrofitInstanceSearchRapidApi
 import com.example.newsapp.ui.logout.AllViewModel
-import com.example.newsapp.utils.OnClick
 import com.example.newsapp.utils.OnClickRapidApi
 import kotlinx.android.synthetic.main.fragment_recent.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tj.livo.newsapp.models.Articles
-import tj.livo.newsapp.models.NewsResponseSave
 
 class SearchFragment : Fragment(), OnClickRapidApi {
     private lateinit var recyclerViewSearchNews: RecyclerView
@@ -46,8 +42,10 @@ class SearchFragment : Fragment(), OnClickRapidApi {
     private var getNewsResponse = MutableLiveData<GetNews>()
     private val listOfNews = ArrayList<Value>()
 
+
+
     private var REQUEST_SENDED = false
-    private var q : String? = null
+    private var q: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +74,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
         recyclerViewSearchNews.adapter = adapterSearch
 
 
-
         var index: Int = 1
         rapidApiNews(index)
 
@@ -87,26 +84,25 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 //        }
 
 
-
         recyclerViewSearchNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-                }
+            }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                val totalItemCount : Int  = layoutManager.itemCount
-                val lastVisible : Int = layoutManager.findLastVisibleItemPosition()
-                val endHasBeenReached : Boolean = lastVisible+1 >= totalItemCount
+                val totalItemCount: Int = layoutManager.itemCount
+                val lastVisible: Int = layoutManager.findLastVisibleItemPosition()
+                val endHasBeenReached: Boolean = lastVisible + 1 >= totalItemCount
 
-                if (totalItemCount > 0  && endHasBeenReached){
-                    if (!REQUEST_SENDED){
+                if (totalItemCount > 0 && endHasBeenReached) {
+                    if (!REQUEST_SENDED) {
                         index++
                         rapidApiNews(index)
 
-                        searchRapidApi(index, q.toString())
+
 
                         progressBar.visibility = View.VISIBLE
                         REQUEST_SENDED = true
@@ -134,13 +130,17 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             }
 
             override fun onTextChanged(filter: CharSequence?, start: Int, before: Int, count: Int) {
-                filterList(filter.toString())
+//                filterList(filter.toString())
+
+                searchRapidApi(filter.toString())
+                Log.e("TAG", "onTextChanged: OK", )
+
             }
+
 
             override fun afterTextChanged(filter: Editable?) {
 
             }
-
         })
 
 
@@ -160,12 +160,12 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 
 
 
-
 //        viewModel.searchDataBase(filter).observe(viewLifecycleOwner) {
 //            adapterSearch.setData(it)
 //            progressBar.visibility = View.GONE
 ////            Log.e("TAG", "onQueryTextSubmit: $it")
 //        }
+
 
 //        listOfNews.observe(viewLifecycleOwner, {
 //
@@ -174,10 +174,11 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 //            Log.d("TAG", "get RapidApiNews: $it")
 //        })
 
+
     }
 
 
-    private fun rapidApiNews(index : Int) {
+    private fun rapidApiNews(index: Int) {
         RetrofitInstanceRapidApi().api().getListOfNews(
             index
         ).enqueue(object : Callback<GetNews> {
@@ -214,11 +215,11 @@ class SearchFragment : Fragment(), OnClickRapidApi {
     }
 
 
-    private fun searchRapidApi(index: Int,q : String){
+    private fun searchRapidApi(q: String) {
         RetrofitInstanceSearchRapidApi().api().getListOfNews(
             q,
-            index
-        ).enqueue(object  : Callback<GetNews>{
+            1
+        ).enqueue(object : Callback<GetNews> {
             override fun onResponse(call: Call<GetNews>, response: Response<GetNews>) {
                 if (!response.isSuccessful) return
 
@@ -236,15 +237,8 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             }
 
         })
-        Log.e("TAG", "searchRapidApi: ", )
+        Log.e("TAG", "searchRapidApi: ")
     }
-
-
-//    override fun onclickListener(articles: Articles) {
-//        val bundle: Bundle = Bundle()
-//        bundle.putParcelable("article", articles)
-//        findNavController().navigate(R.id.allNewsFragment, bundle)
-//    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -256,6 +250,9 @@ class SearchFragment : Fragment(), OnClickRapidApi {
 
     override fun onClickListener(value: Value) {
 
+        val bundle: Bundle = Bundle()
+        bundle.putParcelable("article", value)
+        findNavController().navigate(R.id.webViewRapidApiFragment, bundle)
     }
 
 

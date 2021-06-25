@@ -9,7 +9,11 @@
         android:id="@+id/recentFragment"
         android:name="com.example.newsapp.ui.search.SearchFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_recentFragment_to_webViewRapidApiFragment"
+            app:destination="@id/webViewRapidApiFragment" />
+    </fragment>
     <fragment
         android:id="@+id/logout"
         android:name="com.example.newsapp.ui.logout.LogoutFragment"
@@ -71,4 +75,8 @@
         android:id="@+id/chosenNewsFragment"
         android:name="com.example.newsapp.data.Models.FragmentAllNews.ChosenNewsFragment"
         android:label="@string/app_name" />
+    <fragment
+        android:id="@+id/webViewRapidApiFragment"
+        android:name="com.example.newsapp.data.Models.FragmentAllNews.WebViewRapidApiFragment"
+        android:label="WebViewRapidApiFragment" />
 </navigation>

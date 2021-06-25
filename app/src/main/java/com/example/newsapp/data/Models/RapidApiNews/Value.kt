@@ -1,11 +1,13 @@
 package com.example.newsapp.data.Models.RapidApiNews
 
+import android.os.Parcelable
 import com.example.newsapp.data.Models.RapidApiNews.Image
 import com.example.newsapp.data.Models.RapidApiNews.Provider
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
-
+@Parcelize
 data class Value (
 
 	@SerializedName("id") val id : String? = null,
@@ -20,4 +22,4 @@ data class Value (
 	@SerializedName("datePublished") val datePublished : String? = null,
 	@SerializedName("provider") val provider : Provider? = null,
 	@SerializedName("image") val image : Image? = null
-)
+) : Parcelable
