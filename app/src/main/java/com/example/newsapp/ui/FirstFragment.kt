@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 @Suppress("UNREACHABLE_CODE")
-class First_Fragmets : Fragment() {
+class FirstFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

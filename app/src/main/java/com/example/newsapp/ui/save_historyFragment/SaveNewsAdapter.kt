@@ -23,7 +23,6 @@ class SaveNewsAdapter(
 ) :
     RecyclerView.Adapter<SaveNewsAdapter.SaveNewsViewHolder>() {
 
-    private lateinit var articlesSaveNews: ArticlesSaveNews
     var articlesSaved: List<ArticlesSaveNews> = emptyList()
 
 

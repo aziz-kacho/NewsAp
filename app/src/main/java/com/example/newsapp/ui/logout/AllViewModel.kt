@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import com.example.newsapp.data.RoomDB.DataBase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import tj.livo.newsapp.models.Articles
 
 class AllViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -33,9 +32,6 @@ class AllViewModel(application: Application) : AndroidViewModel(application) {
         daoNewsApp.deleteAllNews()
     }
 
-    fun searchDataBase(searchQuery: String): LiveData<List<Articles>> {
-        return daoNewsApp.searchDataBase(searchQuery)
-    }
 
     fun deleteByCategory(type: String) = GlobalScope.launch{
         daoNewsApp.orderByCategory(type)

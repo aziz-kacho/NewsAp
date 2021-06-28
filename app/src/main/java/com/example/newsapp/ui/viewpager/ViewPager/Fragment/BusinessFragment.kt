@@ -55,7 +55,6 @@ class BusinessFragment : Fragment(), OnClick {
         }
 
 
-
     }
 
     private fun businessNews() {

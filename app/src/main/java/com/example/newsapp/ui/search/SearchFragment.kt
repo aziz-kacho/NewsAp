@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -28,23 +26,19 @@ import kotlinx.android.synthetic.main.fragment_recent.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import tj.livo.newsapp.models.Articles
 
 class SearchFragment : Fragment(), OnClickRapidApi {
     private lateinit var recyclerViewSearchNews: RecyclerView
 
     private lateinit var viewModel: AllViewModel
-    private lateinit var articles: Articles
     private var valueList: List<Value> = emptyList()
     private lateinit var progressBar: ProgressBar
-    private lateinit var searchViewModel: SearchViewModel
     private lateinit var adapterSearch: SearchPagedAdapter
     private var getNewsResponse = MutableLiveData<GetNews>()
     private val listOfNews = ArrayList<Value>()
 
 
     private var REQUEST_SENDED = false
-    private var q: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +55,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
         progressBar = view.findViewById(R.id.progress_circular)
 
 
-        val searchViewModel: SearchViewModel by viewModels()
 
         recyclerViewSearchNews = view.findViewById(R.id.searchRecyclerView)
 
@@ -76,11 +69,7 @@ class SearchFragment : Fragment(), OnClickRapidApi {
         var index: Int = 1
         rapidApiNews(index)
 
-//        listOfNews.observe(viewLifecycleOwner) {
-//            adapterSearch.setData(it)
-//            progressBar.visibility = View.GONE
-//            Log.d("TAG", "get RapidApiNews: $it")
-//        }
+
 
 
         recyclerViewSearchNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -121,9 +110,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
             }
 
             override fun onTextChanged(filter: CharSequence?, start: Int, before: Int, count: Int) {
-//                filterList(filter.toString())
-
-
                 listOfNews.clear()
                 searchRapidApi(filter.toString(), index)
                 Log.e("TAG", "onTextChanged: OK")

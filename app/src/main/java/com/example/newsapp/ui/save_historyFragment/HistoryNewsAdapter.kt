@@ -64,7 +64,7 @@ class HistoryNewsAdapter(private val contextAllRecommended: Fragment, private va
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
     fun getDate(articles: ArticlesHistoryNews): String? {
-        var date: Date = Date()
+        val date: Date = Date()
         val format = "dd.MM.yyyy HH:mm"
         val simpleDateFormat = SimpleDateFormat(format)
         return  simpleDateFormat.format(date)

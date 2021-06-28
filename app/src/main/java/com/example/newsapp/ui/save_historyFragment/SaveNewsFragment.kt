@@ -16,7 +16,6 @@ import tj.livo.newsapp.models.NewsResponseSave
 
 class SaveNewsFragment : Fragment(), OnClickFavorites {
     private lateinit var viewModel: SaveViewModel
-    private var getNewsResponse = MutableLiveData<NewsResponseSave>()
     private lateinit var recyclerViewSavedNews: RecyclerView
     private lateinit var adapterSaveNewsNews: SaveNewsAdapter
 

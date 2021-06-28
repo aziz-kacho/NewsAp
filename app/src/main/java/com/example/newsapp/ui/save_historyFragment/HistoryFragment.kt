@@ -5,20 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.data.Models.HistoryNewsEntity.ArticlesHistoryNews
-import com.example.newsapp.data.Models.HistoryNewsEntity.NewsResponseHistory
 import com.example.newsapp.utils.OnClickHistory
 
 class HistoryFragment : Fragment(), OnClickHistory {
 
     private lateinit var viewModel: HistoryViewModel
-    private var getNewsResponse = MutableLiveData<NewsResponseHistory>()
     private lateinit var recyclerViewHistoryNews: RecyclerView
     private lateinit var adapterHistoryNewsNews: HistoryNewsAdapter
 

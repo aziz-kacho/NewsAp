@@ -13,13 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
-import com.example.newsapp.ui.logout.AdapterAllCategoryNews
-import com.example.newsapp.utils.OnClick
 import com.example.newsapp.network.api.RetrofitInstance
+import com.example.newsapp.ui.logout.AdapterAllCategoryNews
 import com.example.newsapp.ui.logout.AllViewModel
+import com.example.newsapp.utils.OnClick
 import kotlinx.android.synthetic.main.fragment_business.*
-import kotlinx.android.synthetic.main.fragment_business.progress_circular
-import kotlinx.android.synthetic.main.fragment_politics.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

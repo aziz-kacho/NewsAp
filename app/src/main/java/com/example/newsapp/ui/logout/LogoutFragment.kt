@@ -34,7 +34,6 @@ class LogoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        saveViewModel = ViewModelProvider(this).get(SaveViewModel::class.java)
         allViewModel = ViewModelProvider(this).get(AllViewModel::class.java)
 
         logoutConstraintLayout = view.findViewById(R.id.logout)

@@ -76,8 +76,8 @@ class SearchPagedAdapter(
     companion object {
         private val DIFF_CALLBACK = object :
             DiffUtil.ItemCallback<Articles>() {
-            // Concert details may have changed if reloaded from the database,
-            // but ID is fixed.
+
+
             override fun areItemsTheSame(
                 oldConcert: Articles,
                 newConcert: Articles,

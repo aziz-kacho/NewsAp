@@ -21,5 +21,5 @@ data class Articles(
     @SerializedName("url") val url: String?,
     @SerializedName("urlToImage") val urlToImage: String?,
     @SerializedName("publishedAt") var publishedAt: String?,
-    @SerializedName("content") val content: String?
+    @SerializedName("content") val content: String?,
 ) : Parcelable
