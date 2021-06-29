@@ -31,6 +31,5 @@ interface NewsApi {
         @Header("useQueryString")
         useQueryString: Boolean = true,
 
-
         ): Call<GetNews>
 }

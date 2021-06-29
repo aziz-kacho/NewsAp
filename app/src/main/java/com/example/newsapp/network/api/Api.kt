@@ -6,6 +6,7 @@ import retrofit2.http.Query
 import tj.livo.newsapp.models.NewsResponseSave
 
 interface Api {
+
     @GET("v2/top-headlines")
     fun getListOfHeadLine(
         @Query("category") category: String,

@@ -45,15 +45,11 @@ class BusinessFragment : Fragment(), OnClick {
         recyclerViewBusinessNews.adapter = adapterBusinessNews
 
 
-
-
-
         businessNews()
         viewModel.getNewsByCategory("business").observe(viewLifecycleOwner) {
             progress_circular.visibility = View.GONE
             adapterBusinessNews.setData(it)
         }
-
 
     }
 
@@ -67,9 +63,7 @@ class BusinessFragment : Fragment(), OnClick {
             ) {
                 Log.e("Status", response.code().toString())
                 if (response.isSuccessful) {
-                    /*
-                    Здесь будет удаление из базы данных
-                     */viewModel.deleteByCategory("business")
+                    viewModel.deleteByCategory("business")
 
                     response.body()?.articles?.forEach {
                         val articles = it

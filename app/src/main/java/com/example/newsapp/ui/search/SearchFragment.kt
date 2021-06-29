@@ -127,20 +127,6 @@ class SearchFragment : Fragment(), OnClickRapidApi {
     }
 
 
-    private fun filterList(filter: String) {
-
-        val tempList: MutableList<Value> = ArrayList()
-
-        for (d in valueList) {
-            if (filter in d.title.toString()) {
-                tempList.add(d)
-            }
-        }
-
-
-    }
-
-
     private fun rapidApiNews(index: Int) {
         RetrofitInstanceRapidApi().api().getListOfNews(
             index
@@ -219,6 +205,4 @@ class SearchFragment : Fragment(), OnClickRapidApi {
         bundle.putParcelable("article", value)
         findNavController().navigate(R.id.webViewRapidApiFragment, bundle)
     }
-
-
 }
