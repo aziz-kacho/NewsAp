@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         users = dbFirebase.getReference("Users")
 
         btnSignUp.setOnClickListener {
-            showregisterDialog()
+            showRegisterDialog()
         }
 
         btnSignIn.setOnClickListener {
@@ -50,14 +50,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         if (FirebaseAuth.getInstance().currentUser != null) {
-            var intent = Intent(this, ProfileUser::class.java)
+            val intent = Intent(this, ProfileUser::class.java)
             startActivity(intent)
             finish()
         }
         super.onStart()
     }
 
-    private fun showregisterDialog() {
+    private fun showRegisterDialog() {
         val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
         dialog.setTitle("Зарегистрироваться")
 
@@ -89,13 +89,13 @@ class MainActivity : AppCompatActivity() {
                 return@setPositiveButton
             }
 
-            auth.createUserWithEmailAndPassword(email.getText().toString(),
-                password.getText().toString()).addOnSuccessListener {
+            auth.createUserWithEmailAndPassword(email.text.toString(),
+                password.text.toString()).addOnSuccessListener {
 
-                var user =
+                val user =
                     UserJV(email.text.toString(), name.text.toString(), password.text.toString())
                 it.user.let {
-                    FirebaseDatabase.getInstance().getReference().child(it!!.uid).setValue(user)
+                    FirebaseDatabase.getInstance().reference.child(it!!.uid).setValue(user)
                 }
             }
         }
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnSuccessListener {
                     Log.d("TAG", "showSignInDialog: kor kad")
-                    var intent = Intent(this, ProfileUser::class.java)
+                    val intent = Intent(this, ProfileUser::class.java)
                     startActivity(intent)
                     finish()
                 }.addOnFailureListener {

@@ -33,8 +33,7 @@ class ProfileUser : AppCompatActivity() {
             )
         )
 
-//        setupActionBarWithNavController(nav_host, appBarConfiguration)
-//        setupActionBarWithNavController(nav_host, appBarConfiguration)
+
         bottonNav.setupWithNavController(nav_host)
         bottonNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -64,6 +63,4 @@ class ProfileUser : AppCompatActivity() {
 
         return true
     }
-
-
 }

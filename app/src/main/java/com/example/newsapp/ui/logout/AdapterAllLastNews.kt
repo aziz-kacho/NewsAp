@@ -17,11 +17,14 @@ import com.example.newsapp.utils.OnClick
 import tj.livo.newsapp.models.Articles
 import java.util.*
 
-class AdapterAllLastNews(private val contextAllRecommended: Fragment, private var onClick: OnClick) : RecyclerView.Adapter<AdapterAllLastNews.LastNewsViewHolder>() {
+class AdapterAllLastNews(
+    private val contextAllRecommended: Fragment,
+    private var onClick: OnClick,
+) : RecyclerView.Adapter<AdapterAllLastNews.LastNewsViewHolder>() {
 
-    var sportApiNews : List<tj.livo.newsapp.models.Articles> = emptyList()
+    var sportApiNews: List<tj.livo.newsapp.models.Articles> = emptyList()
 
-    fun setData(list: List<tj.livo.newsapp.models.Articles>){
+    fun setData(list: List<tj.livo.newsapp.models.Articles>) {
         sportApiNews = list
         notifyDataSetChanged()
     }
@@ -29,7 +32,7 @@ class AdapterAllLastNews(private val contextAllRecommended: Fragment, private va
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LastNewsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_all_rapidapi,
-                parent, false)
+            parent, false)
         return LastNewsViewHolder(itemView)
     }
 
@@ -49,23 +52,25 @@ class AdapterAllLastNews(private val contextAllRecommended: Fragment, private va
         return sportApiNews.size
     }
 
-    class LastNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
+    class LastNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleImage: ImageView = itemView.findViewById(R.id.imageAllRecommended)
 
         val titleTextAllRecommended: TextView = itemView.findViewById(R.id.titleTextAllRecommended)
 
 
-        val descriptionTextAllRecommended: TextView = itemView.findViewById(R.id.descriptionTextAllRecommended)
+        val descriptionTextAllRecommended: TextView =
+            itemView.findViewById(R.id.descriptionTextAllRecommended)
 
         val dateAllRecommended: TextView = itemView.findViewById(R.id.dateAllRecommended)
     }
+
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
     fun getDate(articles: Articles): String? {
-        var date: Date = Date()
+        val date: Date = Date()
         val format = "dd.MM.yyyy HH:mm"
         val simpleDateFormat = SimpleDateFormat(format)
-        return  simpleDateFormat.format(date)
+        return simpleDateFormat.format(date)
     }
 
 }

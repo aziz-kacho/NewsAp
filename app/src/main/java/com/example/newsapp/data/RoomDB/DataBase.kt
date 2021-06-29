@@ -7,7 +7,9 @@ import androidx.room.RoomDatabase
 import com.example.newsapp.data.Models.HistoryNewsEntity.ArticlesHistoryNews
 import tj.livo.newsapp.models.ArticlesSaveNews
 
-@Database(entities = [tj.livo.newsapp.models.Articles::class, ArticlesSaveNews::class, ArticlesHistoryNews::class], version = 37, exportSchema = true)
+@Database(entities = [tj.livo.newsapp.models.Articles::class, ArticlesSaveNews::class, ArticlesHistoryNews::class],
+    version = 37,
+    exportSchema = true)
 abstract class DataBase : RoomDatabase() {
 
 

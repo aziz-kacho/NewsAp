@@ -18,6 +18,4 @@ interface DaoFavourite {
 
     @Query("delete from favouritesNews")
     fun deleteAllNews()
-
-
 }

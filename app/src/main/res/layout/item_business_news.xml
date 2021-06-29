@@ -1,72 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="20dp">
-
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/imageCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardCornerRadius="16dp"
         tools:ignore="MissingConstraints">
 
-    <ImageView
-        android:id="@+id/imageAllCategoryNews"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#DCDCDC"
-        />
+        <ImageView
+            android:id="@+id/imageAllCategoryNews"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#DCDCDC"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/titleTextAllCategoryNews"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:padding="2dp"
         android:text="The area of Tajikistan is 143.100 square kilometers."
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageCardView"
-        android:fontFamily="sans-serif-black"
-        android:padding="2dp"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/imageCardView" />
 
 
     <TextView
         android:id="@+id/descriptionTextAllCategoryNews"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:padding="2dp"
         android:text="The area of Tajikistan is 143.100 square kilometers.The area of Tajikistan is 143.100 square kilometers."
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:padding="2dp"
-        android:fontFamily="sans-serif"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextAllCategoryNews" />
 
-<!--    app:layout_constraintEnd_toEndOf="@+id/imageAllRecommended"-->
+    <!--    app:layout_constraintEnd_toEndOf="@+id/imageAllRecommended"-->
     <TextView
         android:id="@+id/dateCategoryNews"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:layout_marginEnd="15dp"
         android:text="14.02.2022"
         android:textColor="@color/purple_700"
         android:textSize="18sp"
-        android:layout_marginEnd="15dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextAllCategoryNews" />
 
