@@ -18,7 +18,7 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#E6E6E6"
+            android:background="#A69090"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

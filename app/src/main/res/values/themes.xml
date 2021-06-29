@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.NewsApp" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white_250</item>
-        <item name="colorPrimaryVariant">@color/white_400</item>
+        <item name="colorPrimary">@color/white_for_toolbar</item>
+        <item name="colorPrimaryVariant">@color/polu_green</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

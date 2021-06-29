@@ -8,6 +8,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="min_white">#CDCDCD</color>
+    <color name="white_for_toolbar">#686868</color>
     <color name="white_300">#F3D5D5</color>
     <!--   &lt;!&ndash; <color name="white-100">#C1C1C1</color>-->
     <color name="white_200">#C1C1C1</color>
