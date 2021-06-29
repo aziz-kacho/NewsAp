@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    @SuppressLint("WrongConstant")
+    @SuppressLint("WrongConstant", "ShowToast")
     private fun showSignInDialog() {
         val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
         dialog.setTitle("Войти")
